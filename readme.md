@@ -2,6 +2,8 @@
 
 A simple Arduino sketch for the ESP32 (an Espressif device) that securely connects to a remote server using Wi-Fi and TLS (HTTPS). 
 
+> The reason why the ESP32 platform is important here is because the ability to use HTTPS is included in the ESP32 library suite for Arduino. If you're using the ESP8266 device, there's libraries for that platform as well. 
+
 ## Background
 
 I'm working on an Adruino project that requires the ability to connect to a remote server to retrieve some data. In today's environment where security is paramount, the server I connected to (and likely any server you connected to) secures its connection using Transport Layer Security ([TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security)). TLS is used in HTTPS requests to secure the connection.
