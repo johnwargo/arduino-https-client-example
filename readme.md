@@ -6,47 +6,57 @@ A simple Arduino sketch for the ESP32 (an Espressif device) that securely connec
 
 I'm working on an Adruino project that requires the ability to connect to a remote server to retrieve some data. In today's environment where security is paramount, the server I connected to (and likely any server you connected to) secures its connection using Transport Layer Security ([TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security)). TLS is used in HTTPS requests to secure the connection.
 
+Initially, I panicked a bit thinking that using HTTPS connections on an Arduino device would be painful. I knew I'd have to manage certificates in my sketch and I wasn't looking forward to embedding certificates in my code and troubleshooting connection issues.
+
+It turns out the process is not that bad, so I decided to build a sample project and publish it. I'll publish the full description on johnwargo.com and update this with a link to the post
+
 ## Target Server
 
+For this sketch, I needed a simple public API to use. Since I frequently use [Bacon Ipsum](https://baconipsum.com/) to generate dummy text for my apps and it has a public (free) JSON API, I decided to use that.
 
-
-
+When you click on this link: https://baconipsum.com/api/?type=meat-and-filler&paras=1, the Bacon Ipsum API returns a single paragraph of meat themed content. That's what I needed for this sketch, a quick API call with returned content. 
 
 ## Configuring the Sketch
 
+So I don't include my local Wi-Fi network name (SSID) and password in the sketch, I extracted those values to a separate file called `constants.h` and omitted them from this repository. In its place is a file called `constants.h.rename` that you'll use in its place. After downloading the repository, rename the `constants.h.rename` file to `constants.h` and populate it with the information for your local Wi-Fi network.
 
-
-rename `constants.h.rename` to `constants.h`
-
-Modify the renamed file, populating the two `#define` statements with the Wi-Fi network name (`ssid`) and password
+Populate the two `#define` statements with the Wi-Fi network name (`ssid`) and password:
 
 ```c
 #define WIFI_SSID ""
 #define WIFI_PSWD ""
 ```
 
-When done, your file will look something like this:
+When you're done, the file should look something like this:
 
 ```c
 #define WIFI_SSID "myNetwork"
 #define WIFI_PSWD "Some Complicated Wi-Fi Password"
 ```
 
-with, of course,  your network name and password in there except for the ones I made up.
+with, of course, your network name and password in there except for the ones I made up.
 
+The sketch loads the configuration settings in this line in the sketch:
 
+```c
+#include "constants.h"
+```
 
-## Capturing the Certificate
+## Embedding the Certificate
 
+There are a several articles on the Internet that describe how to use certificates in an Arduino sketch. The one I started with is [ESP32 HTTPS Requests (Arduino IDE)](https://randomnerdtutorials.com/esp32-https-requests/). If it wasn't so ridiculously full of advertisements, it would be a more useful article, but it does describe how to use a Certificate Authority Certificate in an Arduino sketch. 
 
+I created an automated process for converting a downloaded certificate file into the code needed to use it in an Arduino Sketch, you can find the details in [Automated Public Cert to Arduino Header Conversion](https://johnwargo.com/posts/2025/public-cert-arduino/). The end result is a file in the sketch called `caCert.h` that contains the public key for the root certificate used for the Bacon Ipsum API server.
 
+Keeping the certificate in a separate file makes your code a lot easier to read. The sketch loads it using the following:
 
+```c
+#include "caCert.h"
+```
 
 ## Runtime
 
-
-
-
+When you compile and run the sketch with the Monitor open, you'll see something like this:
 
 ```text
 Connecting to MyNetwork:
@@ -54,18 +64,15 @@ Connecting to MyNetwork:
 Wi-Fi connected
 IP address: 192.168.86.82
 
-[HTTPS] begin...
-[HTTPS] GET...
-[HTTPS] GET... code: 200
+[HTTPS] Begin
+[HTTPS] GET
+[HTTPS] Response: 200
 ["Proident sint ullamco ham ut.  Venison capicola jerky beef short loin aliqua.  Beef ribs cupidatat magna, jerky voluptate bresaola occaecat ullamco shank proident minim fatback salami.  Occaecat spare ribs venison enim.  Ham tenderloin eu est sirloin."]
 
 Waiting 30 seconds...
 ```
 
-
-
-
-
+In this case, the sketch connects to the Bacon Ipsum API and returns a 200 response (200) and a single line of meatty content.
 
 ***
 
