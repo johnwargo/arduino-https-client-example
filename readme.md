@@ -6,9 +6,9 @@ A simple Arduino sketch for the ESP32 (an Espressif device) that securely connec
 
 ## Background
 
-I'm working on an Adruino project that requires the ability to connect to a remote server to retrieve some data. In today's environment where security is paramount, the server I connected to (and likely any server you connected to) secures its connection using Transport Layer Security ([TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security)). TLS is used in HTTPS requests to secure the connection.
+I'm working on an Arduino project that requires the ability to connect to a remote server to retrieve some data. In today's environment where security is paramount, the server I connected to (and likely any server you connected to) secures its connection using Transport Layer Security ([TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security)). TLS is used in HTTPS requests to secure the connection.
 
-Initially, I panicked a bit thinking that using HTTPS connections on an Arduino device would be painful. I knew I'd have to manage certificates in my sketch and I wasn't looking forward to embedding certificates in my code and troubleshooting connection issues.
+Initially, I panicked a bit thinking that using HTTPS connections on an Arduino compatible device would be painful. I knew I'd have to manage certificates in my sketch and I wasn't looking forward to embedding certificates in my code and troubleshooting connection issues.
 
 It turns out the process is not that bad, so I decided to build a sample project and publish it. I'll publish the full description on johnwargo.com and update this with a link to the post.
 

@@ -21,6 +21,7 @@ const char *targetUrl =
 
 int counter = 0;
 
+HTTPClient https;
 NetworkClientSecure *client = new NetworkClientSecure;
 
 void setup() {
@@ -52,7 +53,6 @@ void setup() {
 void loop() {
   if (client) {
     client->setCACert(cert);
-    HTTPClient https;
     Serial.println("[HTTPS] Begin");
     if (https.begin(*client, targetUrl)) {
       Serial.println("[HTTPS] GET");
