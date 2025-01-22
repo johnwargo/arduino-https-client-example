@@ -4,9 +4,9 @@ A simple Arduino sketch for the ESP32 (an Espressif device) that securely connec
 
 ## Background
 
+I'm working on an Adruino project that requires the ability to connect to a remote server to retrieve some data. In today's environment where security is paramount, the server I connected to (and likely any server you connected to) secures its connection using Transport Layer Security ([TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security)). TLS is used in HTTPS requests to secure the connection.
 
-
-## Why Bacon Ipsum?
+## Target Server
 
 
 
