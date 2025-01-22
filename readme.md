@@ -10,7 +10,10 @@ I'm working on an Adruino project that requires the ability to connect to a remo
 
 Initially, I panicked a bit thinking that using HTTPS connections on an Arduino device would be painful. I knew I'd have to manage certificates in my sketch and I wasn't looking forward to embedding certificates in my code and troubleshooting connection issues.
 
-It turns out the process is not that bad, so I decided to build a sample project and publish it. I'll publish the full description on johnwargo.com and update this with a link to the post
+It turns out the process is not that bad, so I decided to build a sample project and publish it. I'll publish the full description on johnwargo.com and update this with a link to the post.
+
+**Note:** To build this example, I started with the Arduino [BasicHTTPSClient](https://github.com/espressif/arduino-esp32/tree/master/libraries/HTTPClient/examples/BasicHttpsClient) sample sketch. That one didn't work for me, so I had to go off on my own and write this.
+
 
 ## Target Server
 
@@ -75,6 +78,8 @@ Waiting 30 seconds...
 ```
 
 In this case, the sketch connects to the Bacon Ipsum API and returns a 200 response (200) and a single line of meatty content.
+
+Every 30 seconds, the sketch goes back for more content. I could have made the sketch only connect once, but what's the fun in that. I added a longer wait than the example sketch I started with since I didn't want to send too many requests to the server and have them block me for too many requests.
 
 ***
 
