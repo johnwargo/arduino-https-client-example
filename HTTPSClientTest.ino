@@ -25,7 +25,7 @@ NetworkClientSecure *client = new NetworkClientSecure;
 
 void setup() {
   Serial.begin(115200);
-  delay(2000);
+  delay(500);
 
   Serial.print("\nConnecting to ");
   Serial.print(ssid);
@@ -53,25 +53,24 @@ void loop() {
   if (client) {
     client->setCACert(cert);
     HTTPClient https;
-    Serial.println("[HTTPS] begin...");
+    Serial.println("[HTTPS] Begin");
     if (https.begin(*client, targetUrl)) {
-      Serial.println("[HTTPS] GET...");
+      Serial.println("[HTTPS] GET");
       // start connection to host as a GET request
       int httpCode = https.GET();
-      // httpCode will be negative on error
+      // httpCode is negative on library error
       if (httpCode > 0) {
-        // HTTP header has been send and Server response header has been handled
-        Serial.printf("[HTTPS] GET... code: %d\n", httpCode);
-        // file found at server
-        if (httpCode == HTTP_CODE_OK ||
-            httpCode == HTTP_CODE_MOVED_PERMANENTLY) {
+        // Request sent and response handled
+        Serial.printf("[HTTPS] Response: %d\n", httpCode);
+        if (httpCode == HTTP_CODE_OK) {
           String payload = https.getString();
           Serial.println(payload);
         }
       } else {
-        Serial.printf("[HTTPS] GET... failed, error: %s\n",
+        Serial.printf("[HTTPS] GET failed, error: %s\n",
                       https.errorToString(httpCode).c_str());
       }
+      // close the connection
       https.end();
     } else {
       Serial.printf("[HTTPS] Unable to connect\n");
