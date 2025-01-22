@@ -53,10 +53,10 @@ void loop() {
   if (client) {
     client->setCACert(cert);
     HTTPClient https;
-    Serial.print("[HTTPS] begin...\n");
+    Serial.println("[HTTPS] begin...");
     if (https.begin(*client, targetUrl)) {
-      Serial.print("[HTTPS] GET...\n");
-      // start connection and send HTTP header
+      Serial.println("[HTTPS] GET...");
+      // start connection to host as a GET request
       int httpCode = https.GET();
       // httpCode will be negative on error
       if (httpCode > 0) {
