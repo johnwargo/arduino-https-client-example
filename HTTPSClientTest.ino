@@ -52,7 +52,7 @@ void setup() {
 
 void loop() {
   if (client) {
-    client->setCACert(cert);
+    client->setCACert(caCert);
     Serial.println("[HTTPS] Begin");
     if (https.begin(*client, targetUrl)) {
       Serial.println("[HTTPS] GET");
