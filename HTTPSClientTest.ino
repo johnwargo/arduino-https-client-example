@@ -11,7 +11,7 @@
 #include <NetworkClientSecure.h>
 #include <WiFi.h>
 
-#include "caCert.h"
+#include "cert.h"
 #include "constants.h"
 
 const char *ssid = WIFI_SSID;
@@ -52,7 +52,7 @@ void setup() {
 
 void loop() {
   if (client) {
-    client->setCACert(caCert);
+    client->setCACert(cert);
     Serial.println("[HTTPS] Begin");
     if (https.begin(*client, targetUrl)) {
       Serial.println("[HTTPS] GET");

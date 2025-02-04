@@ -56,7 +56,7 @@ I created an automated process for converting a downloaded certificate file into
 Keeping the certificate in a separate file makes your code a lot easier to read. The sketch loads it using the following:
 
 ```c
-#include "caCert.h"
+#include "cert.h"
 ```
 
 ## Runtime
