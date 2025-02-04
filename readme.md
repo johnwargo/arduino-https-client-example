@@ -1,4 +1,4 @@
-# Arduino HTTPS Client Example
+# HTTPS Client ESP32 Example
 
 A simple Arduino sketch for the ESP32 (an Espressif device) that securely connects to a remote server using Wi-Fi and TLS (HTTPS). 
 
